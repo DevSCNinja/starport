@@ -7,9 +7,9 @@ require (
 	github.com/Pallinder/go-randomdata v1.2.0
 	github.com/briandowns/spinner v1.11.1
 	github.com/cenkalti/backoff v2.2.1+incompatible
-	github.com/cosmos/cosmos-sdk v0.41.3
+	github.com/cosmos/cosmos-sdk v0.42.0
 	github.com/cosmos/go-bip39 v1.0.0
-	github.com/cosmos/relayer v1.0.0-rc1.0.20210205103857-f4b56856caeb
+	github.com/cosmos/relayer v0.8.3
 	github.com/dariubs/percent v0.0.0-20200128140941-b7801cf1c7e2
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
 	github.com/fatih/color v1.10.0
@@ -46,7 +46,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
 	github.com/tendermint/spn v0.0.0-20201215081711-b9ec9286ed83
-	github.com/tendermint/tendermint v0.34.7
+	github.com/tendermint/tendermint v0.34.8
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83 // indirect
 	golang.org/x/mod v0.4.1
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777 // indirect

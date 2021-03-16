@@ -143,6 +143,8 @@ github.com/cosmos/cosmos-sdk v0.40.0-rc3/go.mod h1:eKgbkQO4FEvC+a1+eyRuL7UgluGK1
 github.com/cosmos/cosmos-sdk v0.41.0/go.mod h1:vlgqdPpUGSxgqSbZea6fjszoLkPKwCuiqSBySLlv4ro=
 github.com/cosmos/cosmos-sdk v0.41.3 h1:FQusz1vO0iyri5RBke2aMdx7aqj5Ma2/5c/4W9+u7ko=
 github.com/cosmos/cosmos-sdk v0.41.3/go.mod h1:yKN705My5fGGT93DrdoeZ96GPFLCVZrzDBciGf8/Ldo=
+github.com/cosmos/cosmos-sdk v0.42.0 h1:oQ+rUTYZ5gUq8/YEW83NosCJ3+41iA/3/wZ3pfEIYH8=
+github.com/cosmos/cosmos-sdk v0.42.0/go.mod h1:xiLp1G8mumj82S5KLJGCAyeAlD+7VNomg/aRSJV12yk=
 github.com/cosmos/go-bip39 v0.0.0-20180819234021-555e2067c45d/go.mod h1:tSxLoYXyBmiFeKpvmq4dzayMdCjCnu8uqmCysIGBT2Y=
 github.com/cosmos/go-bip39 v0.0.0-20200817134856-d632e0d11689/go.mod h1:RNJv0H/pOIVgxw6KS7QeX2a0Uo0aKUlfhZ4xuwvCdJw=
 github.com/cosmos/go-bip39 v1.0.0 h1:pcomnQdrdH22njcAatO0yWojsUnCO3y2tNoV1cb6hHY=
@@ -156,6 +158,8 @@ github.com/cosmos/ledger-cosmos-go v0.11.1 h1:9JIYsGnXP613pb2vPjFeMMjBI5lEDsEaF6
 github.com/cosmos/ledger-cosmos-go v0.11.1/go.mod h1:J8//BsAGTo3OC/vDLjMRFLW6q0WAaXvHnVc7ZmE8iUY=
 github.com/cosmos/ledger-go v0.9.2 h1:Nnao/dLwaVTk1Q5U9THldpUMMXU94BOTWPddSmVB6pI=
 github.com/cosmos/ledger-go v0.9.2/go.mod h1:oZJ2hHAZROdlHiwTg4t7kP+GKIIkBT+o6c9QWFanOyI=
+github.com/cosmos/relayer v0.8.3 h1:wrKJdSdsbXMM0AfSrBgs8galEh3PhfPawLTOvkd/VlU=
+github.com/cosmos/relayer v0.8.3/go.mod h1:0ERwrNNLAA7m2NM3QNcCYtOi3kHnNJOaNBbg71l08vI=
 github.com/cosmos/relayer v1.0.0-rc1.0.20210205103857-f4b56856caeb h1:wv62ZozmKp1U/mb/zoILz44PeUOCy5/XW0tp1sR1APY=
 github.com/cosmos/relayer v1.0.0-rc1.0.20210205103857-f4b56856caeb/go.mod h1:4jsV86MGoyWpzphO21eHD50D/11IrKYkqLE5OI2TVeQ=
 github.com/cpuguy83/go-md2man v1.0.10/go.mod h1:SmD6nW6nTyfqj6ABTjUi3V3JVMnlJmwcJI5acqYI6dE=
@@ -808,6 +812,8 @@ github.com/tendermint/tendermint v0.34.0/go.mod h1:Aj3PIipBFSNO21r+Lq3TtzQ+uKESx
 github.com/tendermint/tendermint v0.34.3/go.mod h1:h57vnXeOlrdvvNFCqPBSaOrpOivl+2swWEtlUAqStYE=
 github.com/tendermint/tendermint v0.34.7 h1:lvBJFNqpDuEzKfLZKtUXOL5dMOpqHonHlO6LCujyl6E=
 github.com/tendermint/tendermint v0.34.7/go.mod h1:JVuu3V1ZexOaZG8VJMRl8lnfrGw6hEB2TVnoUwKRbss=
+github.com/tendermint/tendermint v0.34.8 h1:PMWgUx47FrNTsfhxCWzoiIlVAC1SE9+WBlnsF9oQW0I=
+github.com/tendermint/tendermint v0.34.8/go.mod h1:JVuu3V1ZexOaZG8VJMRl8lnfrGw6hEB2TVnoUwKRbss=
 github.com/tendermint/tm-db v0.6.2/go.mod h1:GYtQ67SUvATOcoY8/+x6ylk8Qo02BQyLrAs+yAcLvGI=
 github.com/tendermint/tm-db v0.6.3/go.mod h1:lfA1dL9/Y/Y8wwyPp2NMLyn5P5Ptr/gvDFNWtrCWSf8=
 github.com/tendermint/tm-db v0.6.4 h1:3N2jlnYQkXNQclQwd/eKV/NzlqPlfK21cpRRIx80XXQ=
