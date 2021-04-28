@@ -33,6 +33,7 @@ func NewNetworkChainCreate() *cobra.Command {
 	c.Flags().String(flagBranch, "", "Git branch to use")
 	c.Flags().String(flagTag, "", "Git tag to use")
 	c.Flags().String(flagGenesis, "", "URL to a custom Genesis")
+	c.Flags().BoolP(flagYes, "y", false, "Skip confirmation prompt")
 	return c
 }
 
@@ -44,6 +45,7 @@ func networkChainCreateHandler(cmd *cobra.Command, args []string) error {
 		branch, _     = cmd.Flags().GetString(flagBranch)
 		tag, _        = cmd.Flags().GetString(flagTag)
 		genesisURL, _ = cmd.Flags().GetString(flagGenesis)
+		yes, _ = cmd.Flags().GetBool(flagYes)
 	)
 
 	if len(args) >= 1 {
@@ -149,7 +151,7 @@ func networkChainCreateHandler(cmd *cobra.Command, args []string) error {
 	}
 
 	// ask to confirm Genesis if a custom one isn't provided.
-	if genesisURL == "" {
+	if genesisURL == "" && !yes {
 		prettyGenesis, err := info.Genesis.Pretty()
 		if err != nil {
 			return err

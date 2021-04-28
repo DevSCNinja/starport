@@ -15,6 +15,7 @@ import (
 
 const (
 	flagHome = "home"
+	flagYes = "yes"
 )
 
 var (
