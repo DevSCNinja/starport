@@ -27,6 +27,7 @@ import (
 const (
 	flagGentx = "gentx"
 	flagPeer  = "peer"
+	flagAccountCoins = "account-coins"
 )
 
 const (
@@ -46,6 +47,8 @@ func NewNetworkChainJoin() *cobra.Command {
 	c.Flags().String(flagGentx, "", "Path to a gentx file (optional)")
 	c.Flags().String(flagPeer, "", "Configure peer in node-id@host:port format (optional)")
 	c.Flags().String(flagKeyringBackend, "os", "Keyring backend used for the blockchain account")
+	c.Flags().String(flagAccountCoins, "", "Configure genesis account coins")
+	c.Flags().BoolP(flagYes, "y", false, "Skip confirmation prompt")
 	return c
 }
 
@@ -53,6 +56,8 @@ func networkChainJoinHandler(cmd *cobra.Command, args []string) error {
 	chainID := args[0]
 	gentxPath, _ := cmd.Flags().GetString(flagGentx)
 	publicAddress, _ := cmd.Flags().GetString(flagPeer)
+	accountCoinsFromFlag, _ := cmd.Flags().GetString(flagAccountCoins)
+	yes, _ := cmd.Flags().GetBool(flagYes)
 
 	s := clispinner.New()
 	defer s.Stop()
@@ -107,41 +112,47 @@ func networkChainJoinHandler(cmd *cobra.Command, args []string) error {
 		accountCoins = strings.Join(acc.Coins, ",")
 	}
 
-	// ask to propose an account on target blockchain.
 	shouldProposeAccount := true
 
-	if gentxPath != "" {
-		askAccountProposal := promptui.Prompt{
-			Label:     "Would you like to propose an account to place in Genesis",
-			IsConfirm: true,
+	if accountCoinsFromFlag != "" {
+		account = &chain.Account{
+			Coins: accountCoinsFromFlag,
 		}
-		_, err := askAccountProposal.Run()
-		shouldProposeAccount = err == nil
 	} else {
-		printSection(fmt.Sprintf("Account on the blockchain %s", chainID))
+		// ask to propose an account on target blockchain.
+		if gentxPath != "" {
+			askAccountProposal := promptui.Prompt{
+				Label:     "Would you like to propose an account to place in Genesis",
+				IsConfirm: true,
+			}
+			_, err := askAccountProposal.Run()
+			shouldProposeAccount = err == nil
+		} else {
+			printSection(fmt.Sprintf("Account on the blockchain %s", chainID))
 
-		acc, err := createChainAccount(cmd.Context(), blockchain, fmt.Sprintf("%s blockchain", chainID), accountName)
-		if err != nil {
-			return err
+			acc, err := createChainAccount(cmd.Context(), blockchain, fmt.Sprintf("%s blockchain", chainID), accountName)
+			if err != nil {
+				return err
+			}
+			account = &acc
 		}
-		account = &acc
-	}
 
-	if shouldProposeAccount {
-		// ask to create an account proposal.
-		printSection("Account proposal")
+		if shouldProposeAccount {
+			// ask to create an account proposal.
+			printSection("Account proposal")
 
-		if account == nil {
-			account = &chain.Account{}
-		}
+			if account == nil {
+				account = &chain.Account{}
+			}
 
-		accQuestions := cliquiz.NewQuestion("Account coins",
-			&account.Coins,
-			cliquiz.DefaultAnswer(accountCoins),
-		)
+			accQuestions := cliquiz.NewQuestion("Account coins",
+				&account.Coins,
+				cliquiz.DefaultAnswer(accountCoins),
+			)
 
-		if err := cliquiz.Ask(accQuestions); err != nil {
-			return err
+			if err := cliquiz.Ask(accQuestions); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -172,20 +183,22 @@ func networkChainJoinHandler(cmd *cobra.Command, args []string) error {
 	var shouldJoin string
 	var answerYes, answerNo = "yes", "no"
 
-	for {
-		if err := cliquiz.Ask(cliquiz.NewQuestion(fmt.Sprintf("Please enter %q or %q", answerYes, answerNo),
-			&shouldJoin,
-			cliquiz.Required(),
-		)); err != nil {
-			return err
-		}
-		if shouldJoin == answerNo {
-			s.Stop()
-			fmt.Println("said no")
-			return nil
-		}
-		if shouldJoin == answerYes {
-			break
+	if !yes {
+		for {
+			if err := cliquiz.Ask(cliquiz.NewQuestion(fmt.Sprintf("Please enter %q or %q", answerYes, answerNo),
+				&shouldJoin,
+				cliquiz.Required(),
+			)); err != nil {
+				return err
+			}
+			if shouldJoin == answerNo {
+				s.Stop()
+				fmt.Println("said no")
+				return nil
+			}
+			if shouldJoin == answerYes {
+				break
+			}
 		}
 	}
 
