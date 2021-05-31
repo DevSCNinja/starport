@@ -3,18 +3,14 @@ package protoc
 
 import (
 	"context"
-	"embed"
-	"io/fs"
 	"os"
 
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/exec"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
 	"github.com/tendermint/starport/starport/pkg/localfs"
 	"github.com/tendermint/starport/starport/pkg/protoanalysis"
+	"github.com/tendermint/starport/starport/pkg/protoc/data"
 )
-
-//go:embed data/include/* data/include/**/*
-var include embed.FS
 
 // Option configures Generate configs.
 type Option func(*configs)
@@ -39,18 +35,13 @@ func Generate(ctx context.Context, outDir, protoPath string, includePaths, proto
 	}
 
 	// setup protoc and global protos.
-	protocPath, cleanup, err := localfs.SaveBytesTemp(binary, "protoc", 0755)
+	protocPath, cleanup, err := localfs.SaveBytesTemp(data.Binary(), "protoc", 0755)
 	if err != nil {
 		return err
 	}
 	defer cleanup()
 
-	fsInInclude, err := fs.Sub(include, "data/include")
-	if err != nil {
-		return err
-	}
-
-	globalIncludePath, cleanup, err := localfs.SaveTemp(fsInInclude)
+	globalIncludePath, cleanup, err := localfs.SaveTemp(data.Include())
 	if err != nil {
 		return err
 	}

@@ -1,19 +1,33 @@
 #!/bin/bash
 
-# generates static Go files to embed node cli programs into Starport for linux and darwin.
+# this script generates the nodetime binary for multiple platforms and moves 
+# them to the Go source code, the pkg/nodetime pkg.
 
 set -e
 
+function cleanup () {
+    rm -rf dist/ nodetime-*
+}
+
+cleanup
+
 cd ./scripts/data/gen-nodetime
 
-npm i 
-npm run build
+npm i
 
-tar -czvf nodetime-linux-amd64.tar.gz nodetime-linux
-tar -czvf nodetime-darwin-amd64.tar.gz nodetime-macos
+./node_modules/typescript/bin/tsc
 
-mv nodetime-linux-amd64.tar.gz ../../../starport/pkg/nodetime/ 
-mv nodetime-darwin-amd64.tar.gz ../../../starport/pkg/nodetime/
+./node_modules/pkg/lib-es5/bin.js \
+    --debug \
+    --no-bytecode --public-packages "*" --public \
+    -t node14-linux-x64,node14-linux-arm64,node14-macos-x64 \
+    -o nodetime \
+    .
 
-rm nodetime-linux nodetime-macos
-rm -rf dist/
+tar -czvf nodetime-linux-amd64.tar.gz nodetime-linux-x64
+tar -czvf nodetime-linux-arm64.tar.gz nodetime-linux-arm64
+tar -czvf nodetime-darwin-amd64.tar.gz nodetime-macos-x64
+
+cp nodetime-*.tar.gz ../../../starport/pkg/nodetime/data
+
+cleanup
