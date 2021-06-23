@@ -22,7 +22,7 @@ import (
 
 var (
 	tsOut = []string{
-		"--ts_proto_out=.",
+		"--ts_proto_out=snakeToCamel=false:.",
 	}
 
 	jsOpenAPIOut = []string{
