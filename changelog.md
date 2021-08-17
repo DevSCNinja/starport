@@ -13,6 +13,10 @@
 - `client.toml` is initialized and used by node's CLI, can be configured through `config.yml` with the `init.client` property
 - Support serving Cosmos SDK `v0.43.x` based chains.
 
+### Fixes:
+
+- Scaffolding a chain with dashes in the name now doesn't prevent keys from being added to the keyring
+
 ## `v0.17.1`
 
 ### Fixes:
