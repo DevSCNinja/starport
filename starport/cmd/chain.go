@@ -14,6 +14,7 @@ func NewChain() *cobra.Command {
 	}
 
 	flagSetPath(c)
+	c.AddCommand(NewChainSimulation())
 	c.AddCommand(NewChainServe())
 	c.AddCommand(NewChainBuild())
 	c.AddCommand(NewChainInit())

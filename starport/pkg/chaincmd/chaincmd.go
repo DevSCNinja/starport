@@ -2,6 +2,7 @@ package chaincmd
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
 	"github.com/tendermint/starport/starport/pkg/cosmosver"
@@ -260,6 +261,21 @@ func (c ChainCmd) AddGenesisAccountCommand(address string, coins string) step.Op
 	}
 
 	return c.daemonCommand(command)
+}
+
+// SimulationCommand returns the cli command for golang built in tests
+// cli is the daemon for Stargate
+func (c ChainCmd) SimulationCommand(home string) step.Option {
+	return step.Exec(
+		"go",
+		"test",
+		"-v",
+		"-benchmem",
+		"-run=^$",
+		"-bench",
+		"^BenchmarkSimulation",
+		filepath.Join(home, "app"),
+	)
 }
 
 // GentxOption for the GentxCommand
