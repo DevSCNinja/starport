@@ -725,6 +725,7 @@ starport scaffold module [name] [flags]
   -h, --help                   help for module
       --ibc                    scaffold an IBC module
       --ordering string        channel ordering of the IBC module [none|ordered|unordered] (default "none")
+      --params strings         scaffold module params
   -p, --path string            path of the app (default ".")
       --require-registration   if true command will fail if module can't be registered
 ```
